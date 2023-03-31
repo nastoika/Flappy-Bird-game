@@ -15,10 +15,18 @@ fg.src = 'img/fg.png';
 pipeUp.src = 'img/pipeUp.png';
 pipeBottom.src = 'img/pipeBottom.png';
 
+//sounds
+let fly = new Audio();
+let score_audio = new Audio();
+
+fly.src = 'audio/fly.mp3';
+score_audio.src = 'audio/score.mp3';
+
 //press button
 document.addEventListener('keydown', moveUp);
 function moveUp() {
   yPos -= 25;
+  fly.play();
 }
 
 //create blocks
@@ -64,6 +72,7 @@ function draw() {
 
     if (pipe[i].x == 5) {
       score++;
+      score_audio.play();
     }
   }
 
