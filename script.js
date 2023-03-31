@@ -32,6 +32,7 @@ pipe[0] = {
 let xPos = 10;
 let yPos = 150;
 let grav = 1.5;
+let score = 0;
 
 function draw() {
   ctx.drawImage(bg, 0, 0);
@@ -50,13 +51,19 @@ function draw() {
       });
     }
 
+    //touch traking
     if (
-      xPos + bird.width >= pipe[i].x &&
-      xPos <= pipe[i].x + pipeUp.width &&
-      (yPos <= pipe[i].y ||
-        yPos + bird.height >= pipe[i].y + pipeUp.height + gap)
+      (xPos + bird.width >= pipe[i].x &&
+        xPos <= pipe[i].x + pipeUp.width &&
+        (yPos <= pipe[i].y + pipeUp.height ||
+          yPos + bird.height >= pipe[i].y + pipeUp.height + gap)) ||
+      yPos + bird.height >= canvas.height - fg.height
     ) {
       location.reload();
+    }
+
+    if (pipe[i].x == 5) {
+      score++;
     }
   }
 
@@ -64,6 +71,11 @@ function draw() {
   ctx.drawImage(bird, xPos, yPos);
 
   yPos += grav;
+
+  ctx.fillStyle = '#000';
+  ctx.font = '24px Verdana';
+  ctx.fillText('Score:' + score, 10, canvas.height - 20);
+
   requestAnimationFrame(draw);
 }
 
