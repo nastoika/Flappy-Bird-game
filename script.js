@@ -18,7 +18,7 @@ pipeBottom.src = 'img/pipeBottom.png';
 //press button
 document.addEventListener('keydown', moveUp);
 function moveUp() {
-  yPos -= 20;
+  yPos -= 25;
 }
 
 //create blocks
@@ -31,7 +31,7 @@ pipe[0] = {
 //bird position
 let xPos = 10;
 let yPos = 150;
-let grav = 1;
+let grav = 1.5;
 
 function draw() {
   ctx.drawImage(bg, 0, 0);
@@ -48,6 +48,15 @@ function draw() {
         x: canvas.width,
         y: Math.floor(Math.random() * pipeUp.height) - pipeUp.height,
       });
+    }
+
+    if (
+      xPos + bird.width >= pipe[i].x &&
+      xPos <= pipe[i].x + pipeUp.width &&
+      (yPos <= pipe[i].y ||
+        yPos + bird.height >= pipe[i].y + pipeUp.height + gap)
+    ) {
+      location.reload();
     }
   }
 
